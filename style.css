@@ -1,0 +1,482 @@
+/* ============================================
+   Noise Dept. — Design tokens
+   ============================================ */
+:root{
+  --ink:        #0a0a0a;
+  --ink-soft:   #1c1c1e;
+  --paper:      #f3f1ed;
+  --paper-dim:  #e8e5df;
+  --rule:       #c9c5bd;
+  --steel-1:    #ffffff;
+  --steel-2:    #d9dadd;
+  --steel-3:    #8f9095;
+  --steel-4:    #4c4d51;
+
+  --font-display: "Arial Black", "Archivo Black", "Helvetica Neue", Helvetica, sans-serif;
+  --font-script:  "Bickham Script Pro", "Allura", "Pinyon Script", cursive;
+  --font-body:    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  --edge: clamp(1.25rem, 4vw, 3rem);
+}
+
+*{ box-sizing: border-box; }
+
+html{
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior: auto; }
+  *{ animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
+}
+
+body{
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+a{ color: inherit; text-decoration: none; }
+
+h1, h2, h3{ margin: 0; }
+
+:focus-visible{
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+/* Subtle grain overlay across whole site for texture consistency */
+.grain{
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 999;
+  opacity: .035;
+  mix-blend-mode: multiply;
+  background-image: radial-gradient(circle, #000 1px, transparent 1px);
+  background-size: 3px 3px;
+}
+
+/* ============================================
+   Header / nav
+   ============================================ */
+.site-header{
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem var(--edge);
+  mix-blend-mode: difference;
+  color: #fff;
+}
+
+.mark{
+  font-weight: 900;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  letter-spacing: .04em;
+}
+
+.nav{
+  display: flex;
+  gap: clamp(1.25rem, 3vw, 2.5rem);
+  font-size: .875rem;
+  font-weight: 500;
+}
+
+.nav a{
+  position: relative;
+  padding-bottom: .2rem;
+}
+
+.nav a::after{
+  content: "";
+  position: absolute;
+  left: 0; right: 100%;
+  bottom: 0;
+  height: 1px;
+  background: currentColor;
+  transition: right .25s ease;
+}
+
+.nav a:hover::after{ right: 0; }
+
+/* ============================================
+   Hero
+   ============================================ */
+.hero{
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url("halftone-hero.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+.hero-inner{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 var(--edge);
+}
+
+.line-bold{
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 900; /* Archivo Black is a single 900 weight; this keeps fallback fonts heavy too */
+  font-size: clamp(2.75rem, 12vw, 8.5rem);
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  text-align: center;
+  text-shadow:
+    0 0 2px rgba(255,255,255,.9),
+    0 0 26px rgba(255,255,255,.85),
+    0 0 60px rgba(255,255,255,.55);
+  position: relative;
+  z-index: 1;
+}
+
+.line-script{
+  display: block;
+  font-family: var(--font-script);
+  font-size: clamp(3rem, 14vw, 9rem);
+  line-height: 1;
+  text-align: center;
+  transform: rotate(-7deg) translate(0.4vw, -2.6vw);
+  position: relative;
+  z-index: 2;
+  white-space: nowrap;
+
+  /* black lettering with a metallic silver sheen running through it */
+  background: linear-gradient(
+    100deg,
+    #050505 0%,
+    #050505 30%,
+    #cfd1d4 46%,
+    #ffffff 52%,
+    #cfd1d4 58%,
+    #050505 74%,
+    #050505 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter:
+    drop-shadow(0 0 14px rgba(255,255,255,.65))
+    drop-shadow(0 0 34px rgba(220,222,226,.45));
+}
+
+.scroll-cue{
+  position: absolute;
+  bottom: clamp(1.5rem, 4vh, 3rem);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .6rem;
+  font-size: .7rem;
+  letter-spacing: .1em;
+  color: var(--ink);
+}
+
+.scroll-cue-line{
+  width: 1px;
+  height: 34px;
+  background: var(--ink);
+  opacity: .55;
+}
+
+/* ============================================
+   Index row — Creations / Services / Contact
+   ============================================ */
+.index-row{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.index-panel{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: .85rem;
+  padding: clamp(3.5rem, 12vh, 6rem) clamp(1.25rem, 3vw, 2.5rem);
+  border-right: 1px solid rgba(243,241,237,.14);
+  min-height: 46vh;
+  overflow: hidden;
+  transition: background-color .3s ease;
+}
+
+.index-panel:last-child{ border-right: none; }
+
+.index-word{
+  font-weight: 900;
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 4.2vw, 2.75rem);
+  letter-spacing: -0.01em;
+}
+
+.index-copy{
+  max-width: 22ch;
+  font-size: .95rem;
+  color: rgba(243,241,237,.62);
+  transform: translateY(6px);
+  opacity: 0;
+  transition: opacity .3s ease, transform .3s ease;
+}
+
+.index-panel:hover .index-copy,
+.index-panel:focus-visible .index-copy{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.index-panel::before{
+  content: "";
+  position: absolute;
+  left: clamp(1.25rem, 3vw, 2.5rem);
+  bottom: clamp(2.6rem, 9vh, 4.5rem);
+  width: 28px;
+  height: 1px;
+  background: var(--paper);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .3s ease;
+}
+
+.index-panel:hover::before,
+.index-panel:focus-visible::before{
+  transform: scaleX(1);
+}
+
+.index-panel:hover,
+.index-panel:focus-visible{
+  background: var(--ink-soft);
+}
+
+/* ============================================
+   Shared section layout
+   ============================================ */
+.section{
+  padding: clamp(4.5rem, 10vh, 7rem) var(--edge);
+  border-bottom: 1px solid var(--rule);
+}
+
+.section-head{
+  max-width: 44ch;
+  margin-bottom: clamp(2.5rem, 6vh, 4rem);
+}
+
+.section-head h2{
+  font-weight: 900;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  letter-spacing: -0.01em;
+  margin-bottom: .9rem;
+}
+
+.section-intro{
+  font-size: 1.05rem;
+  color: var(--steel-4);
+  max-width: 38ch;
+}
+
+/* ---- Creations ---- */
+.creation-grid{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+}
+
+.creation-card{
+  background: var(--paper);
+  padding: clamp(2rem, 4vw, 2.75rem);
+  display: flex;
+  flex-direction: column;
+  gap: .9rem;
+}
+
+.creation-index{
+  font-size: .8rem;
+  letter-spacing: .04em;
+  color: var(--steel-4);
+}
+
+.creation-card h3{
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.creation-card p{
+  color: var(--steel-4);
+  max-width: 40ch;
+}
+
+/* ---- Services ---- */
+.service-list{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--rule);
+}
+
+.service-list li{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem 3rem;
+  justify-content: space-between;
+  padding: 1.6rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.service-name{
+  font-weight: 900;
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 2.4vw, 1.6rem);
+  flex: 1 1 220px;
+}
+
+.service-desc{
+  color: var(--steel-4);
+  max-width: 40ch;
+  flex: 1 1 280px;
+}
+
+/* ---- Contact ---- */
+.contact-grid{
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: clamp(2rem, 5vw, 4rem);
+}
+
+.field{
+  display: flex;
+  flex-direction: column;
+  gap: .4rem;
+  margin-bottom: 1.4rem;
+}
+
+.field label{
+  font-size: .85rem;
+  color: var(--steel-4);
+}
+
+.field input,
+.field textarea{
+  font-family: var(--font-body);
+  font-size: 1rem;
+  padding: .75rem .1rem;
+  border: none;
+  border-bottom: 1px solid var(--rule);
+  background: transparent;
+  color: var(--ink);
+  resize: vertical;
+}
+
+.field input:focus,
+.field textarea:focus{
+  outline: none;
+  border-bottom-color: var(--ink);
+}
+
+.submit-btn{
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: .95rem;
+  padding: .9rem 1.75rem;
+  background: var(--ink);
+  color: var(--paper);
+  border: none;
+  cursor: pointer;
+  transition: background-color .2s ease;
+}
+
+.submit-btn:hover{ background: var(--ink-soft); }
+
+.form-status{
+  margin-top: .9rem;
+  font-size: .9rem;
+  min-height: 1.2em;
+}
+
+.contact-info{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.contact-email{
+  font-weight: 900;
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 2.4vw, 1.5rem);
+  word-break: break-word;
+}
+
+.contact-socials{
+  display: flex;
+  flex-direction: column;
+  gap: .6rem;
+}
+
+.contact-socials a{
+  font-size: .95rem;
+  color: var(--steel-4);
+}
+
+.contact-socials a:hover{ color: var(--ink); }
+
+/* ============================================
+   Footer
+   ============================================ */
+.site-footer{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.75rem var(--edge);
+  font-size: .8rem;
+  color: var(--steel-4);
+}
+
+/* ============================================
+   Responsive
+   ============================================ */
+@media (max-width: 860px){
+  .index-row,
+  .creation-grid,
+  .contact-grid{
+    grid-template-columns: 1fr;
+  }
+
+  .index-panel{
+    border-right: none;
+    border-bottom: 1px solid rgba(243,241,237,.14);
+    min-height: 32vh;
+  }
+
+  .index-panel:last-child{ border-bottom: none; }
+
+  .line-script{
+    transform: rotate(-6deg) translate(0, -1.6vw);
+  }
+}
+
+@media (max-width: 600px){
+  .site-header{ padding: 1.15rem var(--edge); }
+  .nav{ gap: 1rem; font-size: .8rem; }
+}
