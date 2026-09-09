@@ -54,6 +54,36 @@ h1{ margin: 0; }
 }
 
 /* ============================================
+   ND mark — fixed, metallic chrome
+   ============================================ */
+.mark{
+  position: fixed;
+  top: clamp(1rem, 3vh, 1.5rem);
+  left: var(--edge);
+  z-index: 60;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 1.1rem;
+  letter-spacing: .04em;
+
+  background: linear-gradient(
+    115deg,
+    #3a3a3c 0%,
+    #d8dadd 22%,
+    #ffffff 32%,
+    #d8dadd 42%,
+    #4a4a4c 60%,
+    #dfe1e4 78%,
+    #ffffff 88%,
+    #4a4a4c 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 1px 1px rgba(0,0,0,.35));
+}
+
+/* ============================================
    Hero
    ============================================ */
 .hero{
@@ -116,11 +146,19 @@ h1{ margin: 0; }
   color: var(--ink);
 }
 
-.scroll-cue-line{
-  width: 1px;
-  height: 34px;
-  background: var(--ink);
-  opacity: .55;
+.scroll-cue-chevron{
+  width: 9px;
+  height: 9px;
+  border-right: 2px solid var(--ink);
+  border-bottom: 2px solid var(--ink);
+  transform: rotate(45deg);
+  opacity: .7;
+  animation: scrollBounce 1.6s ease-in-out infinite;
+}
+
+@keyframes scrollBounce{
+  0%, 100%{ transform: rotate(45deg) translate(0, 0); }
+  50%{ transform: rotate(45deg) translate(4px, 4px); }
 }
 
 /* ============================================
@@ -131,10 +169,11 @@ h1{ margin: 0; }
   display: flex;
   align-items: center;
   justify-content: center;
-  background-image: url("row-bg.jpg");
+  background-image: url("hero-bg.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  background-attachment: fixed;
   padding: 0 var(--edge);
 }
 
@@ -167,6 +206,9 @@ h1{ margin: 0; }
 @media (max-width: 860px){
   .line-script{
     transform: rotate(-6deg) translate(0, -1.6vw);
+  }
+  .content-row{
+    background-attachment: scroll;
   }
 }
 
